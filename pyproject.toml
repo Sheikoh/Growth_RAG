@@ -1,0 +1,35 @@
+[project]
+name = "growth-rag"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Sheikoh", email = "john-lee.dubos@protonmail.com" }
+]
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "accelerate>=1.14.0",
+    "kernels>=0.16.1",
+    "load-dotenv>=0.1.0",
+    "torch>=2.14.0",
+    "transformers>=5.16.1",
+]
+
+[tool.uv.sources]
+torch = { index = "pytorch" }
+
+[[tool.uv.index]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu132"
+
+[project.scripts]
+growth-rag = "growth_rag:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.3.0",
+]
