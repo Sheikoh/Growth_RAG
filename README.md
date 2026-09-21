@@ -12,3 +12,16 @@ Despite
 # 0 - Local transformer
 
 Implementation of a transformer deploy locally through a Jupyter notebook. 
+
+Base model used: "mistralai/Ministral-3-3B-Instruct-2512"
+
+# 1 - Tool Addition
+
+Addition of the usage of tools to our base model
+
+tool:
+fetch_book_url (from the Gutenberg project)
+
+# 2 - Agentic behavior
+
+Modification of the structure 
