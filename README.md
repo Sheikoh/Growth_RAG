@@ -24,4 +24,6 @@ fetch_book_url (from the Gutenberg project)
 
 # 2 - Agentic behavior
 
-Modification of the structure 
+Modification of the code structure to allow the agent to loop over its tools.
+Creation of an agent class including it's methods.
+present capabilities 

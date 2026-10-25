@@ -1,0 +1,32 @@
+# Qdrant for local development. From 03_RAG:
+#     docker compose up -d        start
+#     docker compose stop         stop (data kept)
+#     docker compose down         remove the container (data kept: it is in the volume)
+#     docker compose down -v      ALSO DELETES THE DATA (removes the named volume)
+# Dashboard: http://localhost:6333/dashboard
+#
+# Storage is a Docker *named volume*, not a folder of the Windows disk: on
+# Windows (Docker Desktop / WSL), bind-mounting a host folder for Qdrant storage
+# is known to lose or corrupt data after restarts (Qdrant "common errors").
+# The volume has an explicit name so a different Compose project name cannot
+# silently create a new, empty one. Inspect it with: docker volume inspect growth_rag_qdrant
+#
+# Pin the server to the version of your qdrant-client (`uv pip show qdrant-client`),
+# e.g. QDRANT_VERSION=v1.20.0 in a .env file next to this one: the client warns
+# when client and server versions differ too much. "latest" is only a fallback.
+#
+# Moving to the cloud later changes nothing in the code: set GROWTH_RAG_QDRANT_URL
+# and GROWTH_RAG_QDRANT_API_KEY, then `uv run rag index` uploads the same vectors.
+services:
+  qdrant:
+    image: qdrant/qdrant:${QDRANT_VERSION:-latest}
+    ports:
+      - "6333:6333"   # REST API + dashboard
+      - "6334:6334"   # gRPC
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+
+volumes:
+  qdrant_data:
+    name: growth_rag_qdrant
